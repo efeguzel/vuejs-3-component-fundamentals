@@ -1,38 +1,65 @@
 <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+  </head>
 
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-</head>
+  <body>
+    <div id="app" class="ui container">
+      <h1>Notification Center</h1>
 
-<body>
+      <notification-message type="error" header="Oh no!">
+        <p>Your flight has been <b>cancelled </b></p>
+      </notification-message>
 
-  <div id="app" class="ui container">
-    <h1>Notification Center</h1>
-    
-    <!-- Notification Message Markup -->
-    <!-- Types: info, warning, error, success -->
-    <div class="ui info message">
-      <i class="close icon"></i>
-      <div class="header">
-        You are eligible for a reward
-      </div>
-      <p>Go to the <b>special offers</b> page to see now.</p>
+      <notification-message type="success" header="Oh yeah!">
+        <p>Your flight is on time!</p>
+      </notification-message>
     </div>
 
-  </div>
+    <!-- Notification Message Markup -->
+    <!-- Types: info, warning, error, success -->
 
-  <!-- Template for Notification Message -->
-  <script type="text/x-template" id="notification-message-template">
-  
-  </script>
+    <script src="https://unpkg.com/vue@3"></script>
 
-  <!-- Import Vue.js -->
-  <script src="https://unpkg.com/vue@3"></script>
+    <script type="text/x-template" id="notification-message-template">
+      <div class="ui message" :class="type" v-if="!hidden">
+        <i class="close icon" @click="hide"></i>
+        <div class="header">{{ header }}</div>
+        <slot></slot>
+      </div>
+    </script>
 
-  <!-- Your JavaScript Code :) -->
-  <script>
-    Vue.createApp({}).mount('#app')
-  </script>
-</body>
+    <script>
+      Vue.createApp({})
 
-</html> 
+        .component("notification-message", {
+          template: "#notification-message-template",
+          props: {
+            type: String,
+            header: String,
+          },
+          data() {
+            return {
+              hidden: false,
+            };
+          },
+          methods: {
+            hide() {
+              this.hidden = true;
+            },
+          },
+        })
+
+        .mount("#app");
+    </script>
+    <!-- Template for Notification Message -->
+    <!-- Template for Notification Message -->
+
+    <!-- Import Vue.js -->
+
+    <!-- Your JavaScript Code :) -->
+  </body>
+</html>
