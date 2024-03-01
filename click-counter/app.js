@@ -1,12 +1,13 @@
 const app = Vue.createApp({
 
 })
-.component('click-counter', {
-  template: '#click-counter-template',
-  data(){
+.component("click-counter", {
+  template: '#click-counter-button',
+  data() {
     return {
-      count: 0
+      count:0,
+      
     }
-  }
+  },
 })
 .mount('#app')
